@@ -16,6 +16,8 @@
       "description": "Personal access token which can be obtained from GitHub ... Settings ... Developer settings ... Personal access tokens"
     }
   },
+  "connectorFactory": "io.syndesis.connector.amqp.AMQPConnectorFactory",
+  "componentScheme": "github",
   "actions": [
     {
       "name": "Receive Issues",
@@ -24,79 +26,16 @@
       "pattern": "From",
       "actionType": "connector",
       "descriptor": {
-        "componentScheme": "telegram",
+        "componentScheme": "github",
         "inputDataShape": {
           "kind": "none"
         },
         "outputDataShape": {
           "kind": "java",
-          "type": "org.apache.camel.component.telegram.model.IncomingMessage"
+          "type": "org.kohsuke.github.GHIssue"
         },
-        "configuredProperties": {
-          "type": "bots"
-        },
-        "propertyDefinitionSteps": [
-          {
-            "description": "Chat id",
-            "name": "chatId",
-            "properties": {
-              "chatId": {
-                "componentProperty": false,
-                "deprecated": false,
-                "description": "The telegram's Chat Id.",
-                "displayName": "Chat Id",
-                "javaType": "String",
-                "kind": "parameter",
-                "required": false,
-                "secret": false,
-                "type": "string",
-                "tags": [],
-                "enum": []
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "Send a Text Message",
-      "description": "Send a messages to the chat (through the bot).",
-      "id": "io.syndesis:telegram-chat-to-action",
-      "pattern": "To",
-      "actionType": "connector",
-      "descriptor": {
-        "componentScheme": "telegram",
-        "inputDataShape": {
-          "kind": "java",
-          "type": "org.apache.camel.component.telegram.model.OutgoingTextMessage"
-        },
-        "outputDataShape": {
-          "kind": "none"
-        },
-        "configuredProperties": {
-          "type": "bots"
-        },
-        "propertyDefinitionSteps": [
-            {
-                "description": "Chat id",
-                "name": "chatId",
-                "properties": {
-                    "chatId": {
-                        "componentProperty": false,
-                        "deprecated": false,
-                        "description": "The telegram's Chat Id, if not set will use CamelTelegramChatId from the incoming exchange.",
-                        "displayName": "Chat Id",
-                        "javaType": "String",
-                        "kind": "parameter",
-                        "required": false,
-                        "secret": false,
-                        "type": "string",
-                        "tags": [],
-                        "enum": []
-                    }
-                }
-            }
-        ]
+        "configuredProperties": { },
+        "propertyDefinitionSteps": [ ]
       }
     }
   ]
